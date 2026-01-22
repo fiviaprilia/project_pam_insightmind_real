@@ -31,3 +31,19 @@ Membantu pengguna mengenali kondisi kesehatan mental melalui serangkaian pertany
 
 ## 📌 Catatan
 Project ini dibuat untuk memenuhi tugas mata kuliah **Pengembangan Aplikasi Mobile (PAM) D**.
+
+# Getting Start
+#### clone github
+```bash
+git clone https://github.com/fiviaprilia/project_pam_insightmind_real.git
+```
+
+#### get package
+```bash
+flutter pub get
+```
+
+#### run program
+```bash
+flutter run
+```

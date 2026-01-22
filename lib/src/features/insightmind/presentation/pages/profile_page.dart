@@ -116,6 +116,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
       appBar: AppBar(
         title: Text('PROFIL', style: TextStyle(color: creamHighlight, fontWeight: FontWeight.w900, letterSpacing: 1.5)),
         backgroundColor: deepDarkBrown,
+        foregroundColor: creamHighlight,
         elevation: 0,
         centerTitle: true,
         shape: const RoundedRectangleBorder(
