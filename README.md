@@ -1,11 +1,11 @@
-# InsightMind 🧠
+# InsightMind
 
 InsightMind adalah aplikasi mobile berbasis Flutter yang digunakan untuk melakukan screening kesehatan mental secara mandiri.
 
-## 🎯 Tujuan Aplikasi
+## Tujuan Aplikasi
 Membantu pengguna mengenali kondisi kesehatan mental melalui serangkaian pertanyaan dan menampilkan hasil analisis secara sederhana.
 
-## ✨ Fitur Utama
+## Fitur Utama
 - Login pengguna
 - Screening kesehatan mental berbasis kuesioner
 - Pengambilan data sensor sebagai pendukung analisis
@@ -15,12 +15,12 @@ Membantu pengguna mengenali kondisi kesehatan mental melalui serangkaian pertany
 - Riwayat hasil screening yang tersimpan dan dapat diperbarui
 - Menulis dan menyimpan catatan pribadi pengguna
 
-## 🛠️ Teknologi
+## Teknologi
 - Flutter
 - Riverpod
 - Hive (Local Storage)
 
-## 👥 Tim Pengembang
+## Tim Pengembang
 - Nurul Muafifah 		(5230411067) 
 - Fivi Nur Apriliatin Dwi S. 	(5230411075) 
 - Nanda Agustin 		(5230411087) 
@@ -29,7 +29,7 @@ Membantu pengguna mengenali kondisi kesehatan mental melalui serangkaian pertany
 - Firmanti Alhilma Salsabila 	(5230411286) 
 
 
-## 📌 Catatan
+## Catatan
 Project ini dibuat untuk memenuhi tugas mata kuliah **Pengembangan Aplikasi Mobile (PAM) D**.
 
 # Getting Start
