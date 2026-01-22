@@ -128,10 +128,22 @@ class _BiometricPageState extends ConsumerState<BiometricPage> {
             const SizedBox(height: 16),
 
             FilledButton.icon(
-              icon: const Icon(Icons.camera_alt),
-              label: const Text('Ambil Foto'),
-              onPressed: _capturePhoto,
+            onPressed: _capturePhoto,
+            style: FilledButton.styleFrom(
+              backgroundColor: _accentPink,
+              foregroundColor: _creamHighlight,
+              padding: const EdgeInsets.symmetric(vertical: 14),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
             ),
+            icon: const Icon(Icons.camera_alt),
+            label: const Text(
+              'Ambil Foto',
+              style: TextStyle(fontWeight: FontWeight.w600),
+            ),
+          ),
+
 
             if (_capturedImage != null) ...[
               const SizedBox(height: 16),
@@ -159,25 +171,33 @@ class _BiometricPageState extends ConsumerState<BiometricPage> {
                     ),
                     const SizedBox(height: 12),
                     FilledButton(
-                      onPressed: () {
-                        if (ppg.capturing) {
-                          ref
-                              .read(ppgProvider.notifier)
-                              .stopCapture();
+  onPressed: () {
+    if (ppg.capturing) {
+      ref.read(ppgProvider.notifier).stopCapture();
 
-                          _analyzeMental(
-                            ppg.variance,
-                            accel.asData?.value.variance ?? 0.0,
-                          );
-                        } else {
-                          ref
-                              .read(ppgProvider.notifier)
-                              .startCapture();
-                        }
-                      },
-                      child: Text(
-                          ppg.capturing ? 'Stop PPG' : 'Mulai PPG'),
-                    ),
+      _analyzeMental(
+        ppg.variance,
+        accel.asData?.value.variance ?? 0.0,
+      );
+    } else {
+      ref.read(ppgProvider.notifier).startCapture();
+    }
+  },
+  style: FilledButton.styleFrom(
+    backgroundColor:
+        ppg.capturing ? _deepDarkBrown : _accentPink,
+    foregroundColor: _creamHighlight,
+    padding: const EdgeInsets.symmetric(vertical: 14),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(16),
+    ),
+  ),
+  child: Text(
+    ppg.capturing ? 'Stop PPG' : 'Mulai PPG',
+    style: const TextStyle(fontWeight: FontWeight.w600),
+  ),
+),
+
                   ],
                 ),
               ),
