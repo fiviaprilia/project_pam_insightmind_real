@@ -329,7 +329,7 @@ class HomePage extends ConsumerWidget {
     decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(20), border: Border.all(color: Colors.black.withOpacity(0.05))),
     child: Wrap(spacing: 8, runSpacing: 8, children: List.generate(9, (i) {
       final val = q.answers[i] ?? 0;
-      return Container(width: 40, height: 40, alignment: Alignment.center, decoration: BoxDecoration(color: creamHighlight, borderRadius: BorderRadius.circular(10)), child: Text('$val', style: const TextStyle(fontWeight: FontWeight.bold, color: primaryBrown)));
+      return Container(width: 39, height: 40, alignment: Alignment.center, decoration: BoxDecoration(color: creamHighlight, borderRadius: BorderRadius.circular(10)), child: Text('$val', style: const TextStyle(fontWeight: FontWeight.bold, color: primaryBrown)));
     })),
   );
 
