@@ -2,6 +2,7 @@
 import 'package:hive/hive.dart';
 import '../../domain/entities/screening_history.dart';
 
+
 class HistoryStorage {
   static const String boxName = 'screening_history';
 

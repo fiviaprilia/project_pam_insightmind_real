@@ -122,16 +122,6 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
         ),
-        actions: [
-          // IconButton(
-          //   icon: Icon(Icons.refresh_rounded, color: accentPink),
-          //   onPressed: _onRefresh,
-          // ),
-          IconButton(
-            icon: Icon(Icons.power_settings_new, color: accentPink),
-            onPressed: () => _logoutAndReset(context, ref),
-          ),
-        ],
       ),
       body: RefreshIndicator(
         onRefresh: _onRefresh,

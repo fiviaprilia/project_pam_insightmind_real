@@ -188,10 +188,10 @@ class HomePage extends ConsumerWidget {
                     color2: primaryBrown,
                     onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ScreeningPage())),
                   ),
-                  const SizedBox(height: 32),
-                  _buildSectionLabel("SIMULASI DATA"),
-                  const SizedBox(height: 16),
-                  _buildSimulasiBox(questionnaire),
+                  // const SizedBox(height: 32),
+                  // // _buildSectionLabel("SIMULASI DATA"),
+                  // const SizedBox(height: 16),
+                  // _buildSimulasiBox(questionnaire),
                   const SizedBox(height: 24),
                   hasCompletedScreening
                       ? _buildActionButton(
@@ -324,14 +324,14 @@ class HomePage extends ConsumerWidget {
 
   Widget _buildSectionLabel(String label) => Text(label, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w900, color: primaryBrown, letterSpacing: 1.5));
 
-  Widget _buildSimulasiBox(dynamic q) => Container(
-    padding: const EdgeInsets.all(16),
-    decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(20), border: Border.all(color: Colors.black.withOpacity(0.05))),
-    child: Wrap(spacing: 8, runSpacing: 8, children: List.generate(9, (i) {
-      final val = q.answers[i] ?? 0;
-      return Container(width: 39, height: 40, alignment: Alignment.center, decoration: BoxDecoration(color: creamHighlight, borderRadius: BorderRadius.circular(10)), child: Text('$val', style: const TextStyle(fontWeight: FontWeight.bold, color: primaryBrown)));
-    })),
-  );
+  // Widget _buildSimulasiBox(dynamic q) => Container(
+  //   padding: const EdgeInsets.all(16),
+  //   decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(20), border: Border.all(color: Colors.black.withOpacity(0.05))),
+  //   child: Wrap(spacing: 8, runSpacing: 8, children: List.generate(20, (i) {
+  //     final val = q.answers[i] ?? 0;
+  //     return Container(width: 39, height: 40, alignment: Alignment.center, decoration: BoxDecoration(color: creamHighlight, borderRadius: BorderRadius.circular(10)), child: Text('$val', style: const TextStyle(fontWeight: FontWeight.bold, color: primaryBrown)));
+  //   })),
+  // );
 
   Widget _buildActionButton({required String title, required String subtitle, required IconData icon, required Color color1, required Color color2, required VoidCallback onPressed}) => InkWell(
     onTap: onPressed,
