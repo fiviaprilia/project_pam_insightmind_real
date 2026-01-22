@@ -1,16 +1,33 @@
-# latihan2
+# InsightMind 🧠
 
-A new Flutter project.
+InsightMind adalah aplikasi mobile berbasis Flutter yang digunakan untuk melakukan screening kesehatan mental secara mandiri.
 
-## Getting Started
+## 🎯 Tujuan Aplikasi
+Membantu pengguna mengenali kondisi kesehatan mental melalui serangkaian pertanyaan dan menampilkan hasil analisis secara sederhana.
 
-This project is a starting point for a Flutter application.
+## ✨ Fitur Utama
+- Login pengguna
+- Screening kesehatan mental berbasis kuesioner
+- Pengambilan data sensor sebagai pendukung analisis
+- Analisis hasil screening dan tingkat risiko (Rendah, Sedang, Tinggi)
+- Visualisasi hasil screening dalam bentuk grafik
+- Penyimpanan data dan file hasil screening secara lokal
+- Riwayat hasil screening yang tersimpan dan dapat diperbarui
+- Menulis dan menyimpan catatan pribadi pengguna
 
-A few resources to get you started if this is your first Flutter project:
+## 🛠️ Teknologi
+- Flutter
+- Riverpod
+- Hive (Local Storage)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## 👥 Tim Pengembang
+- Nurul Muafifah 		(5230411067) 
+- Fivi Nur Apriliatin Dwi S. 	(5230411075) 
+- Nanda Agustin 		(5230411087) 
+- Okta Ardita Sauma	   	(5230411099) 
+- Aisya Elok Rahma P.		(5230411100) 
+- Firmanti Alhilma Salsabila 	(5230411286) 
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+## 📌 Catatan
+Project ini dibuat untuk memenuhi tugas mata kuliah **Pengembangan Aplikasi Mobile (PAM) D**.
