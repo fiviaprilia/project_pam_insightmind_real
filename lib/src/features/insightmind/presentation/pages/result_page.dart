@@ -37,21 +37,45 @@ class ResultPage extends ConsumerWidget {
   List<Map<String, dynamic>> _getActionSteps(String risk) {
     if (risk == 'Tinggi') {
       return [
-        {'icon': Icons.phone_in_talk, 'text': 'Hubungi layanan bantuan kesehatan mental'},
-        {'icon': Icons.self_improvement, 'text': 'Lakukan teknik pernapasan 4-7-8 sekarang'},
-        {'icon': Icons.bed_rounded, 'text': 'Prioritaskan waktu istirahat total hari ini'},
+        {
+          'icon': Icons.phone_in_talk,
+          'text': 'Hubungi layanan bantuan kesehatan mental'
+        },
+        {
+          'icon': Icons.self_improvement,
+          'text': 'Lakukan teknik pernapasan 4-7-8 sekarang'
+        },
+        {
+          'icon': Icons.bed_rounded,
+          'text': 'Prioritaskan waktu istirahat total hari ini'
+        },
       ];
     } else if (risk == 'Sedang') {
       return [
-        {'icon': Icons.directions_walk, 'text': 'Jalan kaki ringan selama 15 menit'},
-        {'icon': Icons.no_drinks, 'text': 'Batasi asupan kafein dan gula berlebih'},
-        {'icon': Icons.edit_note, 'text': 'Tuliskan hal yang mengganggu pikiranmu'},
+        {
+          'icon': Icons.directions_walk,
+          'text': 'Jalan kaki ringan selama 15 menit'
+        },
+        {
+          'icon': Icons.no_drinks,
+          'text': 'Batasi asupan kafein dan gula berlebih'
+        },
+        {
+          'icon': Icons.edit_note,
+          'text': 'Tuliskan hal yang mengganggu pikiranmu'
+        },
       ];
     } else {
       return [
         {'icon': Icons.auto_awesome, 'text': 'Lanjutkan kebiasaan positifmu'},
-        {'icon': Icons.favorite_border, 'text': 'Tuliskan 3 hal yang kamu syukuri hari ini'},
-        {'icon': Icons.wb_sunny_outlined, 'text': 'Dapatkan sinar matahari pagi esok hari'},
+        {
+          'icon': Icons.favorite_border,
+          'text': 'Tuliskan 3 hal yang kamu syukuri hari ini'
+        },
+        {
+          'icon': Icons.wb_sunny_outlined,
+          'text': 'Dapatkan sinar matahari pagi esok hari'
+        },
       ];
     }
   }
@@ -76,7 +100,11 @@ class ResultPage extends ConsumerWidget {
     }
 
     final score = questionnaire.totalScore;
-    final riskLevel = score >= 20 ? 'Tinggi' : score >= 10 ? 'Sedang' : 'Rendah';
+    final riskLevel = score >= 20
+        ? 'Tinggi'
+        : score >= 10
+            ? 'Sedang'
+            : 'Rendah';
 
     Future.microtask(() async {
       final history = ScreeningHistory(
@@ -243,13 +271,15 @@ class ResultPage extends ConsumerWidget {
                   decoration: BoxDecoration(
                     color: const Color(0xFFFFEBEE),
                     borderRadius: BorderRadius.circular(24),
-                    border: Border.all(color: Colors.redAccent.withOpacity(0.2)),
+                    border:
+                        Border.all(color: Colors.redAccent.withOpacity(0.2)),
                   ),
                   child: Column(
                     children: [
                       const Row(
                         children: [
-                          Icon(Icons.gpp_maybe_rounded, color: Colors.redAccent),
+                          Icon(Icons.gpp_maybe_rounded,
+                              color: Colors.redAccent),
                           SizedBox(width: 10),
                           Text("BANTUAN DARURAT",
                               style: TextStyle(
@@ -329,10 +359,13 @@ class ResultPage extends ConsumerWidget {
                               borderRadius: BorderRadius.circular(18)),
                         ),
                         onPressed: () {
-                          ref.read(questionnaireProvider.notifier).resetAnswers();
+                          ref
+                              .read(questionnaireProvider.notifier)
+                              .resetAnswers();
                           Navigator.pushAndRemoveUntil(
                             context,
-                            MaterialPageRoute(builder: (_) => const ScreeningPage()),
+                            MaterialPageRoute(
+                                builder: (_) => const ScreeningPage()),
                             (route) => route.isFirst,
                           );
                         },

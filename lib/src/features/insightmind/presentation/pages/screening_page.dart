@@ -21,13 +21,16 @@ class ScreeningPage extends ConsumerWidget {
     final questions = ref.watch(questionsProvider);
     final qState = ref.watch(questionnaireProvider);
 
-    final progressPercent = questions.isEmpty ? 0.0 : (qState.answers.length / questions.length);
-    final progressLabel = '${qState.answers.length} dari ${questions.length} Pertanyaan';
+    final progressPercent =
+        questions.isEmpty ? 0.0 : (qState.answers.length / questions.length);
+    final progressLabel =
+        '${qState.answers.length} dari ${questions.length} Pertanyaan';
 
     // Helper untuk pesan penyemangat (Fitur Tambahan)
     String getEncouragement(double progress) {
       if (progress == 0) return "Mari mulai mengenali diri lebih dalam.";
-      if (progress < 0.5) return "Terima kasih sudah jujur pada dirimu sendiri.";
+      if (progress < 0.5)
+        return "Terima kasih sudah jujur pada dirimu sendiri.";
       if (progress < 1.0) return "Sangat bagus! Sedikit lagi selesai.";
       return "Semua pertanyaan terjawab. Siap melihat hasil?";
     }
@@ -37,7 +40,8 @@ class ScreeningPage extends ConsumerWidget {
       appBar: AppBar(
         title: const Text(
           'SCREENING MENTAL',
-          style: TextStyle(fontWeight: FontWeight.w900, letterSpacing: 1.2, fontSize: 18),
+          style: TextStyle(
+              fontWeight: FontWeight.w900, letterSpacing: 1.2, fontSize: 18),
         ),
         backgroundColor: deepDarkBrown,
         foregroundColor: creamHighlight,
@@ -56,7 +60,8 @@ class ScreeningPage extends ConsumerWidget {
               ),
               borderRadius: BorderRadius.vertical(bottom: Radius.circular(35)),
               boxShadow: [
-                BoxShadow(color: Colors.black26, blurRadius: 15, offset: Offset(0, 5))
+                BoxShadow(
+                    color: Colors.black26, blurRadius: 15, offset: Offset(0, 5))
               ],
             ),
             child: Column(
@@ -66,17 +71,24 @@ class ScreeningPage extends ConsumerWidget {
                   children: [
                     Text(
                       progressLabel,
-                      style: TextStyle(color: creamHighlight.withOpacity(0.7), fontSize: 13, fontWeight: FontWeight.w600),
+                      style: TextStyle(
+                          color: creamHighlight.withOpacity(0.7),
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600),
                     ),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 4),
                       decoration: BoxDecoration(
                         color: accentPink.withOpacity(0.2),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Text(
                         '${(progressPercent * 100).toStringAsFixed(0)}%',
-                        style: const TextStyle(color: creamHighlight, fontWeight: FontWeight.bold, fontSize: 14),
+                        style: const TextStyle(
+                            color: creamHighlight,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14),
                       ),
                     ),
                   ],
@@ -105,7 +117,6 @@ class ScreeningPage extends ConsumerWidget {
               ],
             ),
           ),
-
           Expanded(
             child: ListView.separated(
               padding: const EdgeInsets.fromLTRB(20, 24, 20, 100),
@@ -128,7 +139,10 @@ class ScreeningPage extends ConsumerWidget {
                         Expanded(
                           child: Text(
                             "Tips: Jawablah sesuai kondisi 2 minggu terakhir agar hasil akurat.",
-                            style: TextStyle(fontSize: 12, color: primaryBrown, fontWeight: FontWeight.w600),
+                            style: TextStyle(
+                                fontSize: 12,
+                                color: primaryBrown,
+                                fontWeight: FontWeight.w600),
                           ),
                         ),
                       ],
@@ -140,12 +154,13 @@ class ScreeningPage extends ConsumerWidget {
               itemBuilder: (context, index) {
                 final q = questions[index];
                 final selected = qState.answers[q.id];
-                
+
                 return QuestionTile(
                   question: q,
                   selectedScore: selected,
                   onSelected: (score) {
-                    ref.read(questionnaireProvider.notifier)
+                    ref
+                        .read(questionnaireProvider.notifier)
                         .selectAnswer(questionId: q.id, score: score);
                   },
                 );
@@ -154,16 +169,15 @@ class ScreeningPage extends ConsumerWidget {
           ),
         ],
       ),
-
       floatingActionButton: FloatingActionButton(
         mini: true,
         backgroundColor: surfaceBrown,
         foregroundColor: creamHighlight,
         elevation: 4,
         child: const Icon(Icons.restart_alt_rounded),
-        onPressed: () => _showResetDialog(context, ref, surfaceBrown, creamHighlight, accentPink),
+        onPressed: () => _showResetDialog(
+            context, ref, surfaceBrown, creamHighlight, accentPink),
       ),
-
       bottomNavigationBar: Container(
         padding: const EdgeInsets.fromLTRB(24, 20, 24, 32),
         decoration: BoxDecoration(
@@ -190,20 +204,22 @@ class ScreeningPage extends ConsumerWidget {
               backgroundColor: Colors.transparent,
               shadowColor: Colors.transparent,
               padding: const EdgeInsets.symmetric(vertical: 18),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(18)),
             ),
             onPressed: () {
               if (!qState.isComplete) {
                 _showIncompleteSnackBar(context, primaryBrown);
                 return;
               }
-              _showSummaryDialog(context, ref, questions, qState, surfaceBrown, creamHighlight, accentPink);
+              _showSummaryDialog(context, ref, questions, qState, surfaceBrown,
+                  creamHighlight, accentPink);
             },
             child: const Text(
               'ANALISIS HASIL SEKARANG',
               style: TextStyle(
                 color: creamHighlight,
-                fontWeight: FontWeight.w900, 
+                fontWeight: FontWeight.w900,
                 letterSpacing: 1.5,
                 fontSize: 15,
               ),
@@ -226,15 +242,20 @@ class ScreeningPage extends ConsumerWidget {
     );
   }
 
-  void _showResetDialog(BuildContext context, WidgetRef ref, Color bg, Color text, Color accent) {
+  void _showResetDialog(
+      BuildContext context, WidgetRef ref, Color bg, Color text, Color accent) {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
         backgroundColor: bg,
         title: Text('Reset Jawaban?', style: TextStyle(color: text)),
-        content: const Text('Semua progres screening saat ini akan dihapus.', style: TextStyle(color: Colors.white70)),
+        content: const Text('Semua progres screening saat ini akan dihapus.',
+            style: TextStyle(color: Colors.white70)),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('BATAL', style: TextStyle(color: Colors.white38))),
+          TextButton(
+              onPressed: () => Navigator.pop(ctx),
+              child:
+                  const Text('BATAL', style: TextStyle(color: Colors.white38))),
           TextButton(
             onPressed: () {
               ref.read(questionnaireProvider.notifier).resetAnswers();
@@ -248,13 +269,21 @@ class ScreeningPage extends ConsumerWidget {
     );
   }
 
-  void _showSummaryDialog(BuildContext context, WidgetRef ref, List<Question> questions, QuestionnaireState qState, Color bg, Color text, Color accent) {
+  void _showSummaryDialog(
+      BuildContext context,
+      WidgetRef ref,
+      List<Question> questions,
+      QuestionnaireState qState,
+      Color bg,
+      Color text,
+      Color accent) {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
         backgroundColor: bg,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-        title: Text('Konfirmasi Jawaban', style: TextStyle(color: text, fontWeight: FontWeight.bold)),
+        title: Text('Konfirmasi Jawaban',
+            style: TextStyle(color: text, fontWeight: FontWeight.bold)),
         content: SizedBox(
           width: double.maxFinite,
           child: ListView.builder(
@@ -267,10 +296,15 @@ class ScreeningPage extends ConsumerWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('${i + 1}. ${q.text}', style: const TextStyle(color: Colors.white70, fontSize: 12)),
+                    Text('${i + 1}. ${q.text}',
+                        style: const TextStyle(
+                            color: Colors.white70, fontSize: 12)),
                     Text(
                       qState.getAnswerLabel(q.id),
-                      style: TextStyle(color: Color(0xFFF4F1DE), fontWeight: FontWeight.bold, fontSize: 14),
+                      style: TextStyle(
+                          color: Color(0xFFF4F1DE),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14),
                     ),
                     const Divider(color: Colors.white10),
                   ],
@@ -280,14 +314,25 @@ class ScreeningPage extends ConsumerWidget {
           ),
         ),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('KOREKSI', style: TextStyle(color: Colors.white38))),
+          TextButton(
+              onPressed: () => Navigator.pop(ctx),
+              child: const Text('KOREKSI',
+                  style: TextStyle(color: Colors.white38))),
           FilledButton(
             style: FilledButton.styleFrom(backgroundColor: accent),
             onPressed: () {
               Navigator.pop(ctx);
-              final answersOrdered = questions.map((q) => qState.answers[q.id]!).toList();
+
+              final answersOrdered =
+                  questions.map((q) => qState.answers[q.id]!).toList();
+
+              // SET SEKALI SAJA
               ref.read(answersProvider.notifier).state = answersOrdered;
-              Navigator.of(context).push(MaterialPageRoute(builder: (_) => const ResultPage()));
+
+              // PAKSA NAVIGASI SEKALI, TIDAK BISA DOBEL
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (_) => const ResultPage()),
+              );
             },
             child: const Text('LANJUTKAN'),
           ),

@@ -55,12 +55,12 @@ class HistoryPage extends ConsumerWidget {
         backgroundColor: deepDarkBrown,
         foregroundColor: creamHighlight,
         centerTitle: true,
-        // actions: [
-        //   IconButton(
-        //     icon: const Icon(Icons.logout_rounded),
-        //     onPressed: () => _logoutAndReset(context, ref),
-        //   ),
-        // ],
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout_rounded),
+            onPressed: () => _logoutAndReset(context, ref),
+          ),
+        ],
       ),
       body: historyAsync.when(
         data: (history) {
