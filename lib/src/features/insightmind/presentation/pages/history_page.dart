@@ -1,6 +1,8 @@
 // lib/src/features/insightmind/presentation/pages/history_page.dart
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import '../../providers/history_provider.dart';
 import '../../providers/user_provider.dart';
 import '../../providers/questionnaire_provider.dart';
@@ -19,6 +21,7 @@ class HistoryPage extends ConsumerWidget {
   void _logoutAndReset(BuildContext context, WidgetRef ref) {
     ref.read(userProvider.notifier).state = null;
     ref.read(questionnaireProvider.notifier).resetAnswers();
+
     Navigator.pushAndRemoveUntil(
       context,
       MaterialPageRoute(builder: (_) => const LoginPage()),
@@ -54,6 +57,7 @@ class HistoryPage extends ConsumerWidget {
         ),
         backgroundColor: deepDarkBrown,
         foregroundColor: creamHighlight,
+        elevation: 0,
         centerTitle: true,
         actions: [
           IconButton(
@@ -87,71 +91,68 @@ class HistoryPage extends ConsumerWidget {
             );
           }
 
-          return RefreshIndicator(
-            onRefresh: () async {
-              ref.invalidate(historyProvider);
-            },
-            child: ListView(
-              padding: const EdgeInsets.fromLTRB(0, 0, 0, 100),
-              children: [
-                // 1. Header Greeting
-                Container(
-                  width: double.infinity,
-                  margin: const EdgeInsets.all(20),
-                  padding: const EdgeInsets.all(24),
-                  decoration: BoxDecoration(
-                    gradient: const LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: [primaryBrown, deepDarkBrown],
+          return ListView(
+            padding: const EdgeInsets.fromLTRB(0, 0, 0, 100),
+            children: [
+              // 1. Header Greeting
+              Container(
+                width: double.infinity,
+                margin: const EdgeInsets.all(20),
+                padding: const EdgeInsets.all(24),
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [primaryBrown, deepDarkBrown],
+                  ),
+                  borderRadius: BorderRadius.circular(28),
+                  boxShadow: [
+                    BoxShadow(
+                      color: deepDarkBrown.withOpacity(0.3),
+                      blurRadius: 15,
+                      offset: const Offset(0, 8),
                     ),
-                    borderRadius: BorderRadius.circular(28),
-                    boxShadow: [
-                      BoxShadow(
-                        color: deepDarkBrown.withOpacity(0.3),
-                        blurRadius: 15,
-                        offset: const Offset(0, 8),
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Halo, ${user?.name ?? 'Sobat'}!",
-                            style: TextStyle(
-                              color: creamHighlight.withOpacity(0.7),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          const Icon(
-                            Icons.auto_awesome,
-                            color: Color(0xFFE29578),
-                            size: 18,
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 10),
-                      Text(
-                        _getStatusMessage(history[0].riskLevel),
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w800,
-                          fontSize: 18,
-                          height: 1.4,
-                        ),
-                      ),
-                    ],
-                  ),
+                  ],
                 ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Halo, ${user?.name ?? 'Sobat'}!",
+                          style: TextStyle(
+                            color: creamHighlight.withOpacity(0.7),
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        const Icon(
+                          Icons.auto_awesome,
+                          color: Color(0xFFE29578),
+                          size: 18,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    Text(
+                      _getStatusMessage(history[0].riskLevel),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w800,
+                        fontSize: 18,
+                        height: 1.4,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
 
-                // 2. Trend Card
-                if (history.length >= 2) ...[
-                  Builder(builder: (context) {
+              // 2. Trend Card
+              if (history.length >= 2) ...[
+                Builder(
+                  builder: (context) {
                     final latest = history[0].score;
                     final previous = history[1].score;
                     final isImproving = latest <= previous;
@@ -193,97 +194,93 @@ class HistoryPage extends ConsumerWidget {
                         ],
                       ),
                     );
-                  }),
-                  const SizedBox(height: 20),
-                ],
+                  },
+                ),
+                const SizedBox(height: 20),
+              ],
 
-                // 3. List Riwayat
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: history.length,
-                    itemBuilder: (ctx, i) {
-                      final h = history[i];
-                      final Color riskColor = h.riskLevel == 'Tinggi'
-                          ? dangerRed
-                          : h.riskLevel == 'Sedang'
-                              ? const Color(0xFFE29578)
-                              : successGreen;
+              // 3. List Riwayat
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: history.length,
+                  itemBuilder: (ctx, i) {
+                    final h = history[i];
+                    final Color riskColor = h.riskLevel == 'Tinggi'
+                        ? dangerRed
+                        : h.riskLevel == 'Sedang'
+                            ? const Color(0xFFE29578)
+                            : successGreen;
 
-                      return Container(
-                        margin: const EdgeInsets.only(bottom: 12),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(22),
-                          border: Border.all(
-                            color: deepDarkBrown.withOpacity(0.05),
-                          ),
+                    return Container(
+                      margin: const EdgeInsets.only(bottom: 12),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(22),
+                        border: Border.all(
+                          color: deepDarkBrown.withOpacity(0.05),
                         ),
-                        child: ListTile(
-                          leading: Container(
-                            width: 48,
-                            height: 48,
-                            decoration: BoxDecoration(
-                              color: riskColor.withOpacity(0.1),
-                              borderRadius: BorderRadius.circular(14),
-                            ),
-                            alignment: Alignment.center,
-                            child: Text(
-                              h.score.toString(),
-                              style: TextStyle(
-                                color: riskColor,
-                                fontWeight: FontWeight.w900,
-                              ),
-                            ),
+                      ),
+                      child: ListTile(
+                        leading: Container(
+                          width: 48,
+                          height: 48,
+                          decoration: BoxDecoration(
+                            color: riskColor.withOpacity(0.1),
+                            borderRadius: BorderRadius.circular(14),
                           ),
-                          title: Text(
-                            h.name,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w900,
-                              color: deepDarkBrown,
-                            ),
-                          ),
-                          subtitle: Text(
-                            h.riskLevel.toUpperCase(),
+                          alignment: Alignment.center,
+                          child: Text(
+                            h.score.toString(),
                             style: TextStyle(
                               color: riskColor,
-                              fontSize: 11,
                               fontWeight: FontWeight.w900,
                             ),
                           ),
-                          trailing: Text(
-                            '${h.date.day}/${h.date.month}',
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                              color: deepDarkBrown.withOpacity(0.3),
-                            ),
+                        ),
+                        title: Text(
+                          h.name,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w900,
+                            color: deepDarkBrown,
                           ),
                         ),
-                      );
-                    },
-                  ),
+                        subtitle: Text(
+                          h.riskLevel.toUpperCase(),
+                          style: TextStyle(
+                            color: riskColor,
+                            fontSize: 11,
+                            fontWeight: FontWeight.w900,
+                          ),
+                        ),
+                        trailing: Text(
+                          '${h.date.day}/${h.date.month}',
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                            color: deepDarkBrown.withOpacity(0.3),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
                 ),
-              ],
-            ),
+              ),
+            ],
           );
         },
-        loading: () =>
-            const Center(child: CircularProgressIndicator(color: primaryBrown)),
-        error: (err, _) => Center(child: Text('Gagal memuat data: $err')),
+        loading: () => const Center(
+          child: CircularProgressIndicator(color: primaryBrown),
+        ),
+        error: (err, _) => Center(
+          child: Text('Gagal memuat data: $err'),
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: user != null
           ? FloatingActionButton.extended(
-              backgroundColor: dangerRed,
-              icon: const Icon(Icons.delete_sweep_rounded, color: Colors.white),
-              label: const Text(
-                'BERSIHKAN RIWAYAT',
-                style:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-              ),
               onPressed: () async {
                 final confirm = await showDialog<bool>(
                   context: context,
@@ -297,15 +294,17 @@ class HistoryPage extends ConsumerWidget {
                       style: TextStyle(fontWeight: FontWeight.w900),
                     ),
                     content: const Text(
-                        'Tindakan ini akan menghapus semua catatan secara permanen.'),
+                      'Tindakan ini akan menghapus semua catatan secara permanen.',
+                    ),
                     actions: [
                       TextButton(
                         onPressed: () => Navigator.pop(ctx, false),
                         child: const Text('BATAL'),
                       ),
                       FilledButton(
-                        style:
-                            FilledButton.styleFrom(backgroundColor: dangerRed),
+                        style: FilledButton.styleFrom(
+                          backgroundColor: dangerRed,
+                        ),
                         onPressed: () => Navigator.pop(ctx, true),
                         child: const Text('HAPUS SEMUA'),
                       ),
@@ -320,6 +319,18 @@ class HistoryPage extends ConsumerWidget {
                   ref.invalidate(historyProvider);
                 }
               },
+              backgroundColor: dangerRed,
+              icon: const Icon(
+                Icons.delete_sweep_rounded,
+                color: Colors.white,
+              ),
+              label: const Text(
+                'BERSIHKAN RIWAYAT',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             )
           : null,
     );
