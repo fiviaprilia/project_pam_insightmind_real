@@ -18,6 +18,7 @@ class QuestionTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 2,
+      color: Colors.white,
       shadowColor: Colors.indigo.shade100,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
@@ -46,10 +47,10 @@ class QuestionTile extends StatelessWidget {
                     margin: const EdgeInsets.only(bottom: 10),
                     padding: const EdgeInsets.all(14),
                     decoration: BoxDecoration(
-                      color: isSelected ? Colors.indigo.shade50 : Colors.white,
+                      color: isSelected ? Colors.white : Colors.white,
                       borderRadius: BorderRadius.circular(12),
                       border: Border.all(
-                        color: isSelected ? Colors.indigo : Colors.grey.shade300,
+                        color: isSelected ? Color(0xFF634832) : Colors.grey.shade300,
                         width: 2,
                       ),
                     ),
@@ -61,12 +62,12 @@ class QuestionTile extends StatelessWidget {
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                              color: isSelected ? Colors.indigo.shade700 : Colors.black87,
+                              color: isSelected ? Color(0xFF634832): Colors.black87,
                             ),
                           ),
                         ),
                         if (isSelected)
-                          const Icon(Icons.check_circle, color: Colors.indigo, size: 20),
+                          const Icon(Icons.check_circle, color: Color(0xFF634832), size: 20),
                       ],
                     ),
                   ),

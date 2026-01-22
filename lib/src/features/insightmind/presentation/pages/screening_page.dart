@@ -76,7 +76,7 @@ class ScreeningPage extends ConsumerWidget {
                       ),
                       child: Text(
                         '${(progressPercent * 100).toStringAsFixed(0)}%',
-                        style: const TextStyle(color: accentPink, fontWeight: FontWeight.bold, fontSize: 14),
+                        style: const TextStyle(color: creamHighlight, fontWeight: FontWeight.bold, fontSize: 14),
                       ),
                     ),
                   ],
@@ -88,7 +88,7 @@ class ScreeningPage extends ConsumerWidget {
                     value: progressPercent,
                     minHeight: 10,
                     backgroundColor: Colors.black26,
-                    color: accentPink,
+                    color: creamHighlight,
                   ),
                 ),
                 // --- PENAMBAHAN TEXT PENYEMANGAT ---
@@ -270,7 +270,7 @@ class ScreeningPage extends ConsumerWidget {
                     Text('${i + 1}. ${q.text}', style: const TextStyle(color: Colors.white70, fontSize: 12)),
                     Text(
                       qState.getAnswerLabel(q.id),
-                      style: TextStyle(color: accent, fontWeight: FontWeight.bold, fontSize: 14),
+                      style: TextStyle(color: Color(0xFFF4F1DE), fontWeight: FontWeight.bold, fontSize: 14),
                     ),
                     const Divider(color: Colors.white10),
                   ],

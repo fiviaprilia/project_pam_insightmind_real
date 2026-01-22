@@ -96,7 +96,7 @@ class HomePage extends ConsumerWidget {
                   ),
 
                   const SizedBox(height: 40),
-                  Center(child: _buildDecorativeDivider()),
+                  // Center(child: _buildDecorativeDivider()),
                   const SizedBox(height: 32),
 
                   _buildSectionLabel("SIMULASI DATA", deepDarkBrown),

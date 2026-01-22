@@ -17,7 +17,7 @@ class ReportGenerator {
         pageFormat: PdfPageFormat.a4,
         margin: const pw.EdgeInsets.all(32),
         build: (context) => [
-          pw.Text('InsightMind – Mental Health Report',
+          pw.Text('InsightMind Mental Health Report',
               style: pw.TextStyle(fontSize: 24, fontWeight: pw.FontWeight.bold)),
           pw.SizedBox(height: 20),
           pw.Text('Nama Pengguna: $username'),
