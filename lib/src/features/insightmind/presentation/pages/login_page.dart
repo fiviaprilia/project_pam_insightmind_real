@@ -1,8 +1,8 @@
-// lib/src/features/insightmind/presentation/pages/login_page.dart
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../providers/user_provider.dart';
+import '../../data/local/user_storage.dart';
 import 'home_page.dart';
 import '../../domain/entities/user.dart';
 
@@ -17,12 +17,27 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _ageController = TextEditingController();
+  final UserStorage _userStorage = UserStorage();
 
   // Palette Warna Terang & Elegan
   final Color deepDarkBrown = const Color(0xFF2D1B14); 
   final Color primaryBrown = const Color(0xFF634832);  
   final Color accentPink = const Color(0xFFE07A5F);    
   final Color creamHighlight = const Color(0xFFF4F1DE); // Background Utama
+
+  @override
+  void initState() {
+    super.initState();
+    _loadSavedUser();
+  }
+
+  Future<void> _loadSavedUser() async {
+    final savedUser = await _userStorage.loadUser();
+    if (savedUser != null && mounted) {
+      _nameController.text = savedUser.name;
+      _ageController.text = savedUser.age.toString();
+    }
+  }
 
   @override
   void dispose() {
@@ -139,15 +154,35 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
                         // BUTTON (Warna Gelap agar jadi pusat perhatian/Call to Action)
                         GestureDetector(
-                          onTap: () {
+                          onTap: () async {
                             if (_formKey.currentState!.validate()) {
                               final name = _nameController.text.trim();
                               final age = int.parse(_ageController.text);
-                              ref.read(userProvider.notifier).state = User(name: name, age: age);
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(builder: (_) => const HomePage()),
-                              );
+                              
+                              // Load existing user data to preserve profile picture
+                              final savedUser = await _userStorage.loadUser();
+                              
+                              User user;
+                              if (savedUser != null && savedUser.name == name) {
+                                // User exists - update age but keep profile picture
+                                user = savedUser.copyWith(age: age);
+                              } else {
+                                // New user or different name - create fresh user
+                                user = User(name: name, age: age);
+                              }
+                              
+                              // Save to persistent storage
+                              await _userStorage.saveUser(user);
+                              
+                              // Update provider
+                              ref.read(userProvider.notifier).state = user;
+                              
+                              if (mounted) {
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(builder: (_) => const HomePage()),
+                                );
+                              }
                             }
                           },
                           child: Container(
